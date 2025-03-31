@@ -8,6 +8,10 @@ axios({
   method: "post",
   url: "https://servidor-exercicios-js-eficaz.vercel.app/token",
   data: { username: "matheuslaos" },
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
 }).then(
   (response) => {
     console.log(response);
