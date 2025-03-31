@@ -12,11 +12,41 @@ axios({
     "Content-Type": "application/json",
     Accept: "application/json",
   },
-}).then(
-  (response) => {
-    console.log(response);
-  },
-  (error) => {
-    console.log(error);
-  }
-);
+})
+  .then((response) => {
+    // Extrair o token da resposta
+    const token = response.data.accessToken;
+    console.log("Token recebido:", token);
+
+    // Usar o token na próxima requisição
+    return axios.get(
+      "https://servidor-exercicios-js-eficaz.vercel.app/exercicio",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  })
+  .then(
+    (response) => {
+      console.log(response.data);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+
+// // get request
+// axios
+//   .get("https://servidor-exercicios-js-eficaz.vercel.app/exercicio", {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Accept: "application/json",
+//       Authorization: "Bearer TOKEN",
+//     },
+//   })
+//   .then((response) => console.log(response.data))
+//   .catch((error) => console.log(error));
