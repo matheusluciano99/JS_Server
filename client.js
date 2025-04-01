@@ -41,8 +41,14 @@ axios({
     // Exercicio 2: Tamanho da string
     const resultadoTamanho = exercicios["tamanho-string"].entrada.string.length;
 
+    // Exercício 3: Nome do usuário
+    const email = exercicios["nome-do-usuario"].entrada.email;
+    const posicArroba = email.indexOf("@");
+    const nomeUsuario = email.slice(0, posicArroba);
+
     console.log("Soma:", resultadoSoma);
     console.log("Tamanho da string:", resultadoTamanho);
+    console.log("Nome do usuário:", nomeUsuario);
 
     // Configuração de cabeçalhos comum
     const headers = {
@@ -63,12 +69,18 @@ axios({
         { resposta: resultadoTamanho },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/nome-do-usuario",
+        { resposta: nomeUsuario },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
     // responses é um array com as respostas de cada exercício
     console.log(responses[0].data);
     console.log(responses[1].data);
+    console.log(responses[2].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
