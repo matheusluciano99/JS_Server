@@ -69,6 +69,15 @@ axios({
       acertou = 0;
     }
 
+    // Exercicio 5: Ano bissexto
+    const ano = exercicios["ano-bissexto"].entrada.ano;
+    let bissexto = false;
+    if (ano % 4 === 0 && ano % 100 !== 0) {
+      bissexto = true;
+    } else if (ano % 400 === 0) {
+      bissexto = true;
+    }
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -98,6 +107,11 @@ axios({
         { resposta: acertou },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/ano-bissexto",
+        { resposta: bissexto },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -106,6 +120,7 @@ axios({
     console.log(responses[1].data);
     console.log(responses[2].data);
     console.log(responses[3].data);
+    console.log(responses[4].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
