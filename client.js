@@ -33,7 +33,7 @@ axios({
   .then((response) => {
     // Salvar todos os exercícios
     exercicios = response.data;
-    console.log("Exercícios recebidos:", exercicios);
+    console.log(exercicios);
 
     // Resolver todos os exercícios
     const resultadoSoma = exercicios.soma.entrada.a + exercicios.soma.entrada.b;
