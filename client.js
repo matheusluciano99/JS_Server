@@ -38,17 +38,36 @@ axios({
     // Exercicio 1: Soma valores
     const resultadoSoma = exercicios.soma.entrada.a + exercicios.soma.entrada.b;
 
+    console.log("Soma:", resultadoSoma);
+
     // Exercicio 2: Tamanho da string
     const resultadoTamanho = exercicios["tamanho-string"].entrada.string.length;
+
+    console.log("Tamanho da string:", resultadoTamanho);
 
     // Exercício 3: Nome do usuário
     const email = exercicios["nome-do-usuario"].entrada.email;
     const posicArroba = email.indexOf("@");
     const nomeUsuario = email.slice(0, posicArroba);
 
-    console.log("Soma:", resultadoSoma);
-    console.log("Tamanho da string:", resultadoTamanho);
     console.log("Nome do usuário:", nomeUsuario);
+
+    // Exercicio 4: Jaca Wars!
+    const vel = exercicios["jaca-wars"].entrada.v;
+    const ang = exercicios["jaca-wars"].entrada.theta;
+    const g = 9.8;
+    const rad = (ang * Math.PI) / 180;
+    const resultadoJaca = (vel * vel * Math.sin(2 * rad)) / g;
+    const raioAlcance = 2;
+    let acertou = -1; // já considerando que não acertou
+    if (resultadoJaca >= 100 + raioAlcance) {
+      acertou = 1;
+    } else if (
+      100 - raioAlcance < resultadoJaca &&
+      resultadoJaca < 100 + raioAlcance
+    ) {
+      acertou = 0;
+    }
 
     // Configuração de cabeçalhos comum
     const headers = {
@@ -74,6 +93,11 @@ axios({
         { resposta: nomeUsuario },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/jaca-wars",
+        { resposta: acertou },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -81,6 +105,7 @@ axios({
     console.log(responses[0].data);
     console.log(responses[1].data);
     console.log(responses[2].data);
+    console.log(responses[3].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
