@@ -35,8 +35,10 @@ axios({
     exercicios = response.data;
     console.log(exercicios);
 
-    // Resolver todos os exercícios
+    // Exercicio 1: Soma valores
     const resultadoSoma = exercicios.soma.entrada.a + exercicios.soma.entrada.b;
+
+    // Exercicio 2: Tamanho da string
     const resultadoTamanho = exercicios["tamanho-string"].entrada.string.length;
 
     console.log("Soma:", resultadoSoma);
