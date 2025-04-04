@@ -80,6 +80,13 @@ axios({
     const volume = Math.PI * Math.pow(z, 2) * a;
     const volumePizza = Math.round(volume);
 
+    // Exercício 7: mru
+    const s0 = exercicios.mru.entrada.s0;
+    const v = exercicios.mru.entrada.v;
+    const t = exercicios.mru.entrada.t;
+    const s = s0 + v * t;
+    const respostaMRU = s;
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -119,6 +126,11 @@ axios({
         { resposta: volumePizza },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/mru",
+        { resposta: respostaMRU },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -128,6 +140,8 @@ axios({
     console.log(responses[2].data);
     console.log(responses[3].data);
     console.log(responses[4].data);
+    console.log(responses[5].data);
+    console.log(responses[6].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
