@@ -38,19 +38,13 @@ axios({
     // Exercicio 1: Soma valores
     const resultadoSoma = exercicios.soma.entrada.a + exercicios.soma.entrada.b;
 
-    console.log("Soma:", resultadoSoma);
-
     // Exercicio 2: Tamanho da string
     const resultadoTamanho = exercicios["tamanho-string"].entrada.string.length;
-
-    console.log("Tamanho da string:", resultadoTamanho);
 
     // Exercício 3: Nome do usuário
     const email = exercicios["nome-do-usuario"].entrada.email;
     const posicArroba = email.indexOf("@");
     const nomeUsuario = email.slice(0, posicArroba);
-
-    console.log("Nome do usuário:", nomeUsuario);
 
     // Exercicio 4: Jaca Wars!
     const vel = exercicios["jaca-wars"].entrada.v;
@@ -77,6 +71,14 @@ axios({
     } else if (ano % 400 === 0) {
       bissexto = true;
     }
+
+    // Exercicio 6: Volume da PIZZA!
+    const z = exercicios["volume-da-pizza"].entrada.z;
+    const a = exercicios["volume-da-pizza"].entrada.a;
+
+    // volume com Math.round
+    const volume = Math.PI * Math.pow(z, 2) * a;
+    const volumePizza = Math.round(volume);
 
     // Configuração de cabeçalhos comum
     const headers = {
@@ -110,6 +112,11 @@ axios({
       axios.post(
         "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/ano-bissexto",
         { resposta: bissexto },
+        { headers }
+      ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/volume-da-pizza",
+        { resposta: volumePizza },
         { headers }
       ),
     ]);
