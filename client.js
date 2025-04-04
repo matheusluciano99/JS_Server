@@ -87,6 +87,10 @@ axios({
     const s = s0 + v * t;
     const respostaMRU = s;
 
+    // Exercício 8: Inverte string
+    const string = exercicios["inverte-string"].entrada.string;
+    const stringInvertida = string.split("").reverse().join("");
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -131,6 +135,11 @@ axios({
         { resposta: respostaMRU },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/inverte-string",
+        { resposta: stringInvertida },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -142,6 +151,7 @@ axios({
     console.log(responses[4].data);
     console.log(responses[5].data);
     console.log(responses[6].data);
+    console.log(responses[7].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
