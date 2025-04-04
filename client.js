@@ -91,6 +91,13 @@ axios({
     const string = exercicios["inverte-string"].entrada.string;
     const stringInvertida = string.split("").reverse().join("");
 
+    // Exercicio 9: Soma Valores
+    const objeto = exercicios["soma-valores"].entrada.objeto;
+    const somaValores = Object.values(objeto).reduce(
+      (soma, valor) => soma + valor,
+      0
+    );
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -140,6 +147,11 @@ axios({
         { resposta: stringInvertida },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-valores",
+        { resposta: somaValores },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -152,6 +164,7 @@ axios({
     console.log(responses[5].data);
     console.log(responses[6].data);
     console.log(responses[7].data);
+    console.log(responses[8].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
