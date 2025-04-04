@@ -98,6 +98,26 @@ axios({
       0
     );
 
+    // Exercício 10: n-esimo numero primo
+    const n = exercicios["n-esimo-primo"].entrada.n;
+    let contador = 0;
+    let numero = 1;
+    let nEsimoPrimo = 0;
+    while (contador < n) {
+      numero++;
+      let primo = true;
+      for (let i = 2; i <= Math.sqrt(numero); i++) {
+        if (numero % i === 0) {
+          primo = false;
+          break;
+        }
+      }
+      if (primo) {
+        contador++;
+        nEsimoPrimo = numero;
+      }
+    }
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -152,6 +172,11 @@ axios({
         { resposta: somaValores },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/n-esimo-primo",
+        { resposta: nEsimoPrimo },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -165,6 +190,7 @@ axios({
     console.log(responses[6].data);
     console.log(responses[7].data);
     console.log(responses[8].data);
+    console.log(responses[9].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
