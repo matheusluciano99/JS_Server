@@ -147,6 +147,14 @@ axios({
 
     const prefixo = maiorPrefixo;
 
+    // Exercicio 12: Soma segundo e maior
+    const numeros =
+      exercicios["soma-segundo-maior-e-menor-numeros"].entrada.numeros;
+    const numerosOrdenados = numeros.sort((a, b) => b - a);
+    const segundoMaior = numerosOrdenados[1];
+    const menor = numerosOrdenados[numerosOrdenados.length - 2];
+    const somaSegundoMaior = segundoMaior + menor;
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -211,6 +219,11 @@ axios({
         { resposta: prefixo },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-segundo-maior-e-menor-numeros",
+        { resposta: somaSegundoMaior },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -226,6 +239,7 @@ axios({
     console.log(responses[8].data);
     console.log(responses[9].data);
     console.log(responses[10].data);
+    console.log(responses[11].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
