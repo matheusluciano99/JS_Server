@@ -155,6 +155,14 @@ axios({
     const segundoMenor = numerosOrdenados[numerosOrdenados.length - 2];
     const somaSegundoMaior = segundoMaior + segundoMenor;
 
+    // Exercício 13: Conta Palindromos
+    const palavras = exercicios["conta-palindromos"].entrada.palavras;
+    const palindromos = palavras.filter((palavra) => {
+      const palavraInvertida = palavra.split("").reverse().join("");
+      return palavra === palavraInvertida;
+    });
+    const quantidadePalindromos = palindromos.length;
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -224,6 +232,11 @@ axios({
         { resposta: somaSegundoMaior },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/conta-palindromos",
+        { resposta: quantidadePalindromos },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -240,6 +253,7 @@ axios({
     console.log(responses[9].data);
     console.log(responses[10].data);
     console.log(responses[11].data);
+    console.log(responses[12].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
