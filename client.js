@@ -170,110 +170,126 @@ axios({
       .map((str) => parseInt(str, 10) || 0) // Convert to numbers, replace NaN with 0
       .reduce((soma, numero) => soma + numero, 0); // Add all numbers
 
-    // Configuração de cabeçalhos comum
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    };
+    // Exercicio 15: Soma com requisições
+    const endpoints = exercicios["soma-com-requisicoes"].entrada.endpoints;
 
-    // Enviar todos os exercícios em paralelo
-    return Promise.all([
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma",
-        { resposta: resultadoSoma },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/tamanho-string",
-        { resposta: resultadoTamanho },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/nome-do-usuario",
-        { resposta: nomeUsuario },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/jaca-wars",
-        { resposta: acertou },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/ano-bissexto",
-        { resposta: bissexto },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/volume-da-pizza",
-        { resposta: volumePizza },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/mru",
-        { resposta: respostaMRU },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/inverte-string",
-        { resposta: stringInvertida },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-valores",
-        { resposta: somaValores },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/n-esimo-primo",
-        { resposta: nEsimoPrimo },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/maior-prefixo-comum",
-        { resposta: prefixo },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-segundo-maior-e-menor-numeros",
-        { resposta: somaSegundoMaior },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/conta-palindromos",
-        { resposta: quantidadePalindromos },
-        { headers }
-      ),
-      axios.post(
-        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-de-strings-de-ints",
-        { resposta: somaStringsInteiros },
-        { headers }
-      ),
-    ]);
-  })
-  .then((responses) => {
-    // responses é um array com as respostas de cada exercício
-    console.log(responses[0].data);
-    console.log(responses[1].data);
-    console.log(responses[2].data);
-    console.log(responses[3].data);
-    console.log(responses[4].data);
-    console.log(responses[5].data);
-    console.log(responses[6].data);
-    console.log(responses[7].data);
-    console.log(responses[8].data);
-    console.log(responses[9].data);
-    console.log(responses[10].data);
-    console.log(responses[11].data);
-    console.log(responses[12].data);
-    console.log(responses[13].data);
+    // Criar um array de promessas para cada endpoint
+    const promisesEndpoints = endpoints.map((endpoint) => {
+      return axios.get(endpoint, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    });
 
-    // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
-    return responses;
-  })
-  .catch((error) => {
-    console.log("Erro:", error.message);
-    if (error.response) {
-      console.log("Detalhes do erro:", error.response.data);
-    }
+    // Precisamos resolver as requisições dos endpoints antes de enviar os resultados
+    return Promise.all(promisesEndpoints)
+      .then((resultadosEndpoints) => {
+        // Extrair os valores e somar
+        let somaEndpoints = 0;
+        resultadosEndpoints.forEach((response) => {
+          somaEndpoints += response.data;
+        });
+
+        // Configuração de cabeçalhos comum
+        const headers = {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        // Enviar todos os exercícios em paralelo
+        return Promise.all([
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma",
+            { resposta: resultadoSoma },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/tamanho-string",
+            { resposta: resultadoTamanho },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/nome-do-usuario",
+            { resposta: nomeUsuario },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/jaca-wars",
+            { resposta: acertou },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/ano-bissexto",
+            { resposta: bissexto },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/volume-da-pizza",
+            { resposta: volumePizza },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/mru",
+            { resposta: respostaMRU },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/inverte-string",
+            { resposta: stringInvertida },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-valores",
+            { resposta: somaValores },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/n-esimo-primo",
+            { resposta: nEsimoPrimo },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/maior-prefixo-comum",
+            { resposta: prefixo },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-segundo-maior-e-menor-numeros",
+            { resposta: somaSegundoMaior },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/conta-palindromos",
+            { resposta: quantidadePalindromos },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-de-strings-de-ints",
+            { resposta: somaStringsInteiros },
+            { headers }
+          ),
+          axios.post(
+            "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-com-requisicoes",
+            { resposta: somaEndpoints },
+            { headers }
+          ),
+        ]);
+      })
+      .then((responses) => {
+        // Exibir as respostas de cada exercício
+        for (let i = 0; i < responses.length; i++) {
+          console.log(`Resposta do exercício ${i + 1}:`, responses[i].data);
+        }
+        return responses;
+      })
+      .catch((error) => {
+        console.log("Erro:", error.message);
+        if (error.response) {
+          console.log("Detalhes do erro:", error.response.data);
+        }
+      });
   });
