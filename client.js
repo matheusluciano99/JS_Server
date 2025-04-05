@@ -152,8 +152,8 @@ axios({
       exercicios["soma-segundo-maior-e-menor-numeros"].entrada.numeros;
     const numerosOrdenados = numeros.sort((a, b) => b - a);
     const segundoMaior = numerosOrdenados[1];
-    const menor = numerosOrdenados[numerosOrdenados.length - 2];
-    const somaSegundoMaior = segundoMaior + menor;
+    const segundoMenor = numerosOrdenados[numerosOrdenados.length - 2];
+    const somaSegundoMaior = segundoMaior + segundoMenor;
 
     // Configuração de cabeçalhos comum
     const headers = {
