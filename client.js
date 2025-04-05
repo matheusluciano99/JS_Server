@@ -118,6 +118,35 @@ axios({
       }
     }
 
+    // Exercicio 11: Maior prefixo comum
+    const strings = exercicios["maior-prefixo-comum"].entrada.strings;
+    // Encontrar o maior prefixo comum entre todas as strings
+    let maiorPrefixo = "";
+
+    // Verificar todos os pares possíveis de strings
+    for (let i = 0; i < strings.length; i++) {
+      for (let j = i + 1; j < strings.length; j++) {
+        // Encontrar o prefixo comum entre este par de strings
+        let prefixoAtual = "";
+        const str1 = strings[i];
+        const str2 = strings[j];
+        let k = 0;
+
+        // Comparar caracteres em ambas as strings
+        while (k < str1.length && k < str2.length && str1[k] === str2[k]) {
+          prefixoAtual += str1[k];
+          k++;
+        }
+
+        // Atualizar o maior prefixo se este for maior
+        if (prefixoAtual.length > maiorPrefixo.length) {
+          maiorPrefixo = prefixoAtual;
+        }
+      }
+    }
+
+    const prefixo = maiorPrefixo;
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -177,6 +206,11 @@ axios({
         { resposta: nEsimoPrimo },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/maior-prefixo-comum",
+        { resposta: prefixo },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -191,6 +225,7 @@ axios({
     console.log(responses[7].data);
     console.log(responses[8].data);
     console.log(responses[9].data);
+    console.log(responses[10].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
