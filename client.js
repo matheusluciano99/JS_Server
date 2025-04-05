@@ -163,6 +163,13 @@ axios({
     });
     const quantidadePalindromos = palindromos.length;
 
+    // Exercicio 14: Soma de strings de inteiros
+    const stringsInteiros =
+      exercicios["soma-de-strings-de-ints"].entrada.strings;
+    const somaStringsInteiros = stringsInteiros
+      .map((str) => parseInt(str, 10) || 0) // Convert to numbers, replace NaN with 0
+      .reduce((soma, numero) => soma + numero, 0); // Add all numbers
+
     // Configuração de cabeçalhos comum
     const headers = {
       "Content-Type": "application/json",
@@ -237,6 +244,11 @@ axios({
         { resposta: quantidadePalindromos },
         { headers }
       ),
+      axios.post(
+        "https://servidor-exercicios-js-eficaz.vercel.app/exercicio/soma-de-strings-de-ints",
+        { resposta: somaStringsInteiros },
+        { headers }
+      ),
     ]);
   })
   .then((responses) => {
@@ -254,6 +266,7 @@ axios({
     console.log(responses[10].data);
     console.log(responses[11].data);
     console.log(responses[12].data);
+    console.log(responses[13].data);
 
     // Se quiser fazer mais alguma coisa com as respostas, pode fazer aqui
     return responses;
